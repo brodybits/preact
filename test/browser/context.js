@@ -56,7 +56,7 @@ describe('context', () => {
 
 		render(<Outer />, scratch, scratch.lastChild);
 
-		expect(Outer.prototype.getChildContext).to.have.been.calledOnce;
+		expect(Outer.prototype.getChildContext).to.have.been.calledOnce();
 
 		// initial render does not invoke anything but render():
 		expect(Inner.prototype.render).to.have.been.calledWith({ children:CHILDREN_MATCHER }, {}, CONTEXT);
@@ -64,7 +64,7 @@ describe('context', () => {
 		CONTEXT.foo = 'bar';
 		render(<Outer {...PROPS} />, scratch, scratch.lastChild);
 
-		expect(Outer.prototype.getChildContext).to.have.been.calledTwice;
+		expect(Outer.prototype.getChildContext).to.have.been.calledTwice();
 
 		let props = { children: CHILDREN_MATCHER, ...PROPS };
 		expect(Inner.prototype.shouldComponentUpdate).to.have.been.calledOnce.and.calledWith(props, {}, CONTEXT);
@@ -115,7 +115,7 @@ describe('context', () => {
 
 		render(<Outer />, scratch, scratch.lastChild);
 
-		expect(Outer.prototype.getChildContext).to.have.been.calledOnce;
+		expect(Outer.prototype.getChildContext).to.have.been.calledOnce();
 
 		// initial render does not invoke anything but render():
 		expect(Inner.prototype.render).to.have.been.calledWith({ children: CHILDREN_MATCHER }, {}, CONTEXT);
@@ -123,7 +123,7 @@ describe('context', () => {
 		CONTEXT.foo = 'bar';
 		render(<Outer {...PROPS} />, scratch, scratch.lastChild);
 
-		expect(Outer.prototype.getChildContext).to.have.been.calledTwice;
+		expect(Outer.prototype.getChildContext).to.have.been.calledTwice();
 
 		let props = { children: CHILDREN_MATCHER, ...PROPS };
 		expect(Inner.prototype.shouldComponentUpdate).to.have.been.calledOnce.and.calledWith(props, {}, CONTEXT);

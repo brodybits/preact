@@ -86,25 +86,25 @@ describe_('React Developer Tools integration', () => {
 	});
 
 	it('registers preact as a renderer with the React DevTools hook', () => {
-		expect(global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject).to.be.called;
+		expect(global.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject).to.be.called();
 	});
 
 	// Basic component addition/update/removal tests
 	it('notifies dev tools about new components', () => {
 		render(h(StatefulComponent), container);
-		expect(renderer.Reconciler.mountComponent).to.be.called;
+		expect(renderer.Reconciler.mountComponent).to.be.called();
 	});
 
 	it('notifies dev tools about component updates', () => {
 		const node = render(h(StatefulComponent), container);
 		node._component.forceUpdate();
-		expect(renderer.Reconciler.receiveComponent).to.be.called;
+		expect(renderer.Reconciler.receiveComponent).to.be.called();
 	});
 
 	it('notifies dev tools when components are removed', () => {
 		const node = render(h(StatefulComponent), container);
 		unmountComponent(node._component, true);
-		expect(renderer.Reconciler.unmountComponent).to.be.called;
+		expect(renderer.Reconciler.unmountComponent).to.be.called();
 	});
 
 	// Test properties of DOM components exposed to devtools via
@@ -214,7 +214,7 @@ describe_('React Developer Tools integration', () => {
 		node._component.setState({count: 0});
 		node._component.forceUpdate();
 
-		expect(renderer.Reconciler.unmountComponent).to.be.called;
+		expect(renderer.Reconciler.unmountComponent).to.be.called();
 	});
 
 	// Root component info
@@ -225,7 +225,7 @@ describe_('React Developer Tools integration', () => {
 
 	it('notifies dev tools when new root components are mounted', () => {
 		render(h(StatefulComponent), container);
-		expect(renderer.Mount._renderNewRootComponent).to.be.called;
+		expect(renderer.Mount._renderNewRootComponent).to.be.called();
 	});
 
 	it('removes root components when they are unmounted', () => {

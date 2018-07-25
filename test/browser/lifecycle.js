@@ -313,11 +313,11 @@ describe('Lifecycle methods', () => {
 
 			element = render(<Foo />, scratch, element);
 			expect(element.className).to.equal('initial');
-			expect(Foo.getDerivedStateFromProps).to.have.been.calledOnce;
+			expect(Foo.getDerivedStateFromProps).to.have.been.calledOnce();
 
 			rerender(); // call rerender to handle cDM setState call
 			expect(element.className).to.equal('updated derived');
-			expect(Foo.getDerivedStateFromProps).to.have.been.calledTwice;
+			expect(Foo.getDerivedStateFromProps).to.have.been.calledTwice();
 		});
 
 		it('should NOT modify state if null is returned', () => {
@@ -341,7 +341,7 @@ describe('Lifecycle methods', () => {
 
 			let element = render(<Foo />, scratch);
 			expect(element.className).to.equal('foo bar');
-			expect(Foo.getDerivedStateFromProps).to.have.been.called;
+			expect(Foo.getDerivedStateFromProps).to.have.been.called();
 		});
 
 		// NOTE: Difference from React
@@ -365,7 +365,7 @@ describe('Lifecycle methods', () => {
 
 			let element = render(<Foo />, scratch);
 			expect(element.className).to.equal('foo bar');
-			expect(Foo.getDerivedStateFromProps).to.have.been.called;
+			expect(Foo.getDerivedStateFromProps).to.have.been.called();
 		});
 
 		it('should NOT invoke deprecated lifecycles (cWM/cWRP) if new static gDSFP is present', () => {
@@ -383,9 +383,9 @@ describe('Lifecycle methods', () => {
 			sinon.spy(Foo.prototype, 'componentWillReceiveProps');
 
 			render(<Foo />, scratch);
-			expect(Foo.getDerivedStateFromProps).to.have.been.called;
-			expect(Foo.prototype.componentWillMount).to.not.have.been.called;
-			expect(Foo.prototype.componentWillReceiveProps).to.not.have.been.called;
+			expect(Foo.getDerivedStateFromProps).to.have.been.called();
+			expect(Foo.prototype.componentWillMount).to.not.have.been.called();
+			expect(Foo.prototype.componentWillReceiveProps).to.not.have.been.called();
 		});
 
 		it('is not called if neither state nor props have changed', () => {
@@ -654,10 +654,10 @@ describe('Lifecycle methods', () => {
 			// state.value: initialized to 0 in constructor, 0 -> 1 in gDSFP
 			let element = render(<Foo foo="foo" />, scratch);
 			expect(element.textContent).to.be.equal('1');
-			expect(prevPropsArg).to.be.undefined;
-			expect(prevStateArg).to.be.undefined;
-			expect(curProps).to.be.undefined;
-			expect(curState).to.be.undefined;
+			expect(prevPropsArg).to.be.undefined();
+			expect(prevStateArg).to.be.undefined();
+			expect(curProps).to.be.undefined();
+			expect(curState).to.be.undefined();
 
 			// New props
 			// state.value: 1 -> 2 in gDSFP
@@ -710,7 +710,7 @@ describe('Lifecycle methods', () => {
 			}
 			sinon.spy(ReceivePropsComponent.prototype, 'componentWillUpdate');
 			render(<ReceivePropsComponent />, scratch);
-			expect(ReceivePropsComponent.prototype.componentWillUpdate).not.to.have.been.called;
+			expect(ReceivePropsComponent.prototype.componentWillUpdate).not.to.have.been.called();
 		});
 
 		it('should be called when rerender with new props from parent', () => {
@@ -741,12 +741,12 @@ describe('Lifecycle methods', () => {
 
 			// Initial render
 			render(<Outer />, scratch);
-			expect(Inner.prototype.componentWillUpdate).not.to.have.been.called;
+			expect(Inner.prototype.componentWillUpdate).not.to.have.been.called();
 
 			// Rerender inner with new props
 			doRender();
 			rerender();
-			expect(Inner.prototype.componentWillUpdate).to.have.been.called;
+			expect(Inner.prototype.componentWillUpdate).to.have.been.called();
 		});
 
 		it('should be called on new state', () => {
@@ -762,11 +762,11 @@ describe('Lifecycle methods', () => {
 			}
 			sinon.spy(ReceivePropsComponent.prototype, 'componentWillUpdate');
 			render(<ReceivePropsComponent />, scratch);
-			expect(ReceivePropsComponent.prototype.componentWillUpdate).not.to.have.been.called;
+			expect(ReceivePropsComponent.prototype.componentWillUpdate).not.to.have.been.called();
 
 			doRender();
 			rerender();
-			expect(ReceivePropsComponent.prototype.componentWillUpdate).to.have.been.called;
+			expect(ReceivePropsComponent.prototype.componentWillUpdate).to.have.been.called();
 		});
 
 		it('should be called after children are mounted', () => {
@@ -813,7 +813,7 @@ describe('Lifecycle methods', () => {
 			}
 			sinon.spy(ReceivePropsComponent.prototype, 'componentWillReceiveProps');
 			render(<ReceivePropsComponent />, scratch);
-			expect(ReceivePropsComponent.prototype.componentWillReceiveProps).not.to.have.been.called;
+			expect(ReceivePropsComponent.prototype.componentWillReceiveProps).not.to.have.been.called();
 		});
 
 		it('should be called when rerender with new props from parent', () => {
@@ -846,12 +846,12 @@ describe('Lifecycle methods', () => {
 
 			// Initial render
 			render(<Outer />, scratch);
-			expect(Inner.prototype.componentWillReceiveProps).not.to.have.been.called;
+			expect(Inner.prototype.componentWillReceiveProps).not.to.have.been.called();
 
 			// Rerender inner with new props
 			doRender();
 			rerender();
-			expect(Inner.prototype.componentWillReceiveProps).to.have.been.called;
+			expect(Inner.prototype.componentWillReceiveProps).to.have.been.called();
 		});
 
 		it('should be called in right execution order', () => {
@@ -870,16 +870,16 @@ describe('Lifecycle methods', () => {
 			}
 			class Inner extends Component {
 				componentDidUpdate() {
-					expect(Inner.prototype.componentWillReceiveProps).to.have.been.called;
-					expect(Inner.prototype.componentWillUpdate).to.have.been.called;
+					expect(Inner.prototype.componentWillReceiveProps).to.have.been.called();
+					expect(Inner.prototype.componentWillUpdate).to.have.been.called();
 				}
 				componentWillReceiveProps() {
-					expect(Inner.prototype.componentWillUpdate).not.to.have.been.called;
-					expect(Inner.prototype.componentDidUpdate).not.to.have.been.called;
+					expect(Inner.prototype.componentWillUpdate).not.to.have.been.called();
+					expect(Inner.prototype.componentDidUpdate).not.to.have.been.called();
 				}
 				componentWillUpdate() {
-					expect(Inner.prototype.componentWillReceiveProps).to.have.been.called;
-					expect(Inner.prototype.componentDidUpdate).not.to.have.been.called;
+					expect(Inner.prototype.componentWillReceiveProps).to.have.been.called();
+					expect(Inner.prototype.componentDidUpdate).not.to.have.been.called();
 				}
 				render() {
 					return <div />;
@@ -950,10 +950,10 @@ describe('Lifecycle methods', () => {
 			// state.value: initialized to 0 in constructor, 0 -> 1 in gDSFP
 			let element = render(<Foo foo="foo" />, scratch);
 			expect(element.textContent).to.be.equal('1');
-			expect(prevPropsArg).to.be.undefined;
-			expect(prevStateArg).to.be.undefined;
-			expect(curProps).to.be.undefined;
-			expect(curState).to.be.undefined;
+			expect(prevPropsArg).to.be.undefined();
+			expect(prevStateArg).to.be.undefined();
+			expect(curProps).to.be.undefined();
+			expect(curState).to.be.undefined();
 
 			// New props
 			// state.value: 1 -> 2 in gDSFP
@@ -1011,14 +1011,14 @@ describe('Lifecycle methods', () => {
 			spyAll(Bar.prototype);
 
 			render(<Foo />, scratch, scratch.lastChild);
-			expect(Foo.prototype.componentDidMount, 'initial render').to.have.been.calledOnce;
+			expect(Foo.prototype.componentDidMount, 'initial render').to.have.been.calledOnce();
 
 			render(<Bar />, scratch, scratch.lastChild);
-			expect(Foo.prototype.componentWillUnmount, 'when replaced').to.have.been.calledOnce;
-			expect(Bar.prototype.componentDidMount, 'when replaced').to.have.been.calledOnce;
+			expect(Foo.prototype.componentWillUnmount, 'when replaced').to.have.been.calledOnce();
+			expect(Bar.prototype.componentDidMount, 'when replaced').to.have.been.calledOnce();
 
 			render(<div />, scratch, scratch.lastChild);
-			expect(Bar.prototype.componentWillUnmount, 'when removed').to.have.been.calledOnce;
+			expect(Bar.prototype.componentWillUnmount, 'when removed').to.have.been.calledOnce();
 		});
 	});
 
@@ -1079,10 +1079,10 @@ describe('Lifecycle methods', () => {
 			it('should be invoked for components on initial render', () => {
 				reset();
 				render(<Outer />, scratch);
-				expect(proto._constructor).to.have.been.called;
-				expect(proto.componentDidMount).to.have.been.called;
+				expect(proto._constructor).to.have.been.called();
+				expect(proto.componentDidMount).to.have.been.called();
 				expect(proto.componentWillMount).to.have.been.calledBefore(proto.componentDidMount);
-				expect(proto.componentDidMount).to.have.been.called;
+				expect(proto.componentDidMount).to.have.been.called();
 			});
 
 			it('should be invoked for components on unmount', () => {
@@ -1090,7 +1090,7 @@ describe('Lifecycle methods', () => {
 				setState({ show:false });
 				rerender();
 
-				expect(proto.componentWillUnmount).to.have.been.called;
+				expect(proto.componentWillUnmount).to.have.been.called();
 			});
 
 			it('should be invoked for components on re-render', () => {
@@ -1098,10 +1098,10 @@ describe('Lifecycle methods', () => {
 				setState({ show:true });
 				rerender();
 
-				expect(proto._constructor).to.have.been.called;
-				expect(proto.componentDidMount).to.have.been.called;
+				expect(proto._constructor).to.have.been.called();
+				expect(proto.componentDidMount).to.have.been.called();
 				expect(proto.componentWillMount).to.have.been.calledBefore(proto.componentDidMount);
-				expect(proto.componentDidMount).to.have.been.called;
+				expect(proto.componentDidMount).to.have.been.called();
 			});
 		};
 
@@ -1155,32 +1155,32 @@ describe('Lifecycle methods', () => {
 
 			it('should be invoke normally on initial mount', () => {
 				render(<Outer />, scratch);
-				expect(proto.componentWillMount).to.have.been.called;
+				expect(proto.componentWillMount).to.have.been.called();
 				expect(proto.componentWillMount).to.have.been.calledBefore(proto.componentDidMount);
-				expect(proto.componentDidMount).to.have.been.called;
+				expect(proto.componentDidMount).to.have.been.called();
 			});
 
 			it('should be invoked normally on unmount', () => {
 				setState({ show:false });
 				rerender();
 
-				expect(proto.componentWillUnmount).to.have.been.called;
+				expect(proto.componentWillUnmount).to.have.been.called();
 			});
 
 			it('should still invoke mount for shouldComponentUpdate():false', () => {
 				setState({ show:true });
 				rerender();
 
-				expect(proto.componentWillMount).to.have.been.called;
+				expect(proto.componentWillMount).to.have.been.called();
 				expect(proto.componentWillMount).to.have.been.calledBefore(proto.componentDidMount);
-				expect(proto.componentDidMount).to.have.been.called;
+				expect(proto.componentDidMount).to.have.been.called();
 			});
 
 			it('should still invoke unmount for shouldComponentUpdate():false', () => {
 				setState({ show:false });
 				rerender();
 
-				expect(proto.componentWillUnmount).to.have.been.called;
+				expect(proto.componentWillUnmount).to.have.been.called();
 			});
 		});
 	});
@@ -1216,7 +1216,7 @@ describe('Lifecycle methods', () => {
 			setState({ show:false });
 			rerender();
 
-			expect(Should.prototype.render).to.have.been.calledTwice;
+			expect(Should.prototype.render).to.have.been.calledTwice();
 		});
 
 		it('should not rerender component if shouldComponentUpdate returns false', () => {
@@ -1224,8 +1224,8 @@ describe('Lifecycle methods', () => {
 			setState({ show:false });
 			rerender();
 
-			expect(ShouldNot.prototype.shouldComponentUpdate).to.have.been.calledOnce;
-			expect(ShouldNot.prototype.render).to.have.been.calledOnce;
+			expect(ShouldNot.prototype.shouldComponentUpdate).to.have.been.calledOnce();
+			expect(ShouldNot.prototype.render).to.have.been.calledOnce();
 		});
 
 		it('should be passed next props and state', () => {
@@ -1278,10 +1278,10 @@ describe('Lifecycle methods', () => {
 			// state.value: initialized to 0 in constructor, 0 -> 1 in gDSFP
 			let element = render(<Foo foo="foo" />, scratch);
 			expect(element.textContent).to.be.equal('1');
-			expect(curProps).to.be.undefined;
-			expect(curState).to.be.undefined;
-			expect(nextPropsArg).to.be.undefined;
-			expect(nextStateArg).to.be.undefined;
+			expect(curProps).to.be.undefined();
+			expect(curState).to.be.undefined();
+			expect(nextPropsArg).to.be.undefined();
+			expect(nextStateArg).to.be.undefined();
 
 			// New props
 			// state.value: 1 -> 2 in gDSFP
@@ -1391,21 +1391,21 @@ describe('Lifecycle methods', () => {
 			let reset = () => spies.forEach( s => proto[s].resetHistory() );
 
 			render(<Outer />, scratch);
-			expect(proto.componentWillMount).to.have.been.called;
+			expect(proto.componentWillMount).to.have.been.called();
 			expect(proto.componentWillMount).to.have.been.calledBefore(proto.componentDidMount);
-			expect(proto.componentDidMount).to.have.been.called;
+			expect(proto.componentDidMount).to.have.been.called();
 
 			reset();
 			setState({ show:false });
 
-			expect(proto.componentWillUnmount).to.have.been.called;
+			expect(proto.componentWillUnmount).to.have.been.called();
 
 			reset();
 			setState({ show:true });
 
-			expect(proto.componentWillMount).to.have.been.called;
+			expect(proto.componentWillMount).to.have.been.called();
 			expect(proto.componentWillMount).to.have.been.calledBefore(proto.componentDidMount);
-			expect(proto.componentDidMount).to.have.been.called;
+			expect(proto.componentDidMount).to.have.been.called();
 		});
 
 		it('should remove this.base for HOC', () => {
